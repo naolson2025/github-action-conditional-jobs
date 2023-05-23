@@ -27,7 +27,7 @@ jobs:
   deploy:
     outputs:
       # this will get the value from the step-result step below
-      outcome: ${{ steps.step-result.outputs.result }}
+      outcome: ${{ steps.step-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
