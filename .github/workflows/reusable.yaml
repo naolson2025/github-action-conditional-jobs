@@ -14,8 +14,20 @@ on:
         required: true
         default: dist
         type: string
+    # can also pass secrets to the reusable workflow
+    secrets:
+      some-secret:
+        required: false
+    outputs:
+      result:
+        description: The result of the deployment operation
+        # this will get the value from the deploy job outcome line 29 below
+        value: ${{ jobs.deploy.outputs.outcome }}
 jobs:
   deploy:
+    outputs:
+      # this will get the value from the step-result step below
+      outcome: ${{ steps.step-result.outputs.result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -27,3 +39,6 @@ jobs:
         run: ls
       - name: Output information
         run: echo "deploying & uploading..."
+      - name: Set result output
+        id: step-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT

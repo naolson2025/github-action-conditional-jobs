@@ -82,6 +82,15 @@ jobs:
     with:
       # pass in the artifact from the build job
       artifact_name: dist-files
+    # secrets:
+      # pass the secret to the reusable workflow
+      # some-secret: ${{ secrets.some-secret }}
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: echo "${{ needs.deploy.outputs.result}}"
   # we can apply conditional logic at the job level
   # so this job will only run if any of the previous jobs failed
   report:
