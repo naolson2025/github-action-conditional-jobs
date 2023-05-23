@@ -1,0 +1,22 @@
+name: Matrix Demo
+on: push
+jobs:
+  build:
+    # The matrix will 6 the build job 6 times, using all possible combinations of the node version and operating system
+    strategy:
+      matrix:
+        node-version: [12, 14, 16]
+        operating-system: [ubuntu-latest, windows-latest]
+    # matrix is a keyword that allows you to run a job multiple times with different configurations
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
