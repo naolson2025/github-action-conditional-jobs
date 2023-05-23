@@ -9,6 +9,14 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         operating-system: [ubuntu-latest, windows-latest]
+        # include is a keyword that allows for stand alone configurations
+        include:
+          - node-version: latest
+            operating-system: macos-latest
+        # exclude is a keyword that allows for removing stand alone configurations
+        exclude:
+          - node-version: 12
+            operating-system: windows-latest
     # matrix is a keyword that allows you to run a job multiple times with different configurations
     runs-on: ${{ matrix.operating-system }}
     steps:

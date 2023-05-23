@@ -1,0 +1,12 @@
+# This is an example of a reusable workflow
+# https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+# The goal is to use this workflow inside other workflows
+name: Reusable Deploy
+# workflow_call allows you to call a workflow from another workflow
+on: workflow_call
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: echo "deploying & uploading..."
