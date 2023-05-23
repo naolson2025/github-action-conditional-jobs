@@ -3,10 +3,27 @@
 # The goal is to use this workflow inside other workflows
 name: Reusable Deploy
 # workflow_call allows you to call a workflow from another workflow
-on: workflow_call
+on:
+  workflow_call:
+    # an input is like a parameter for the workflow
+    # so you can pass values to the workflow
+    inputs:
+      artifact_name:
+        description: 'The name of the artifact to download'
+        # required means that the input is mandatory
+        required: true
+        default: dist
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Code
+        uses: actions/download-artifact@v3
+        with:
+          # here we use the input provided to this workflow
+          name: ${{ github.event.inputs.artifact_name }}
+      - name: list files
+        run: ls
       - name: Output information
         run: echo "deploying & uploading..."
