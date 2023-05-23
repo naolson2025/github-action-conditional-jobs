@@ -2,6 +2,8 @@ name: Matrix Demo
 on: push
 jobs:
   build:
+    # continue on error because if any of the combinations fail the default behavior is to cancel any remaining jobs, but we want all combinations to run
+    continue-on-error: true
     # The matrix will 6 the build job 6 times, using all possible combinations of the node version and operating system
     strategy:
       matrix:
