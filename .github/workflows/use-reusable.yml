@@ -79,6 +79,9 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yaml
+    with:
+      # pass in the artifact from the build job
+      artifact_name: dist-files
   # we can apply conditional logic at the job level
   # so this job will only run if any of the previous jobs failed
   report:
